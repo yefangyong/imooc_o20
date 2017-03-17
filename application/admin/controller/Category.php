@@ -12,7 +12,9 @@ class Category extends Controller
 
     public function index()
     {
-        return $this->fetch();
+        $parent_id = input('get.parent_id',0,'intval');
+        $category = $this->obj->getCatorys($parent_id);
+        return $this->fetch('',['categorys'=>$category]);
     }
 
    public function add() {

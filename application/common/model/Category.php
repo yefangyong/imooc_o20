@@ -21,6 +21,19 @@ class Category extends Model
         return $this->where($data)->order($order)->select();
     }
 
+    public function getCatorys($id = 0) {
+        $data = [
+            'status'=>['neq',-1],
+            'parent_id'=>$id
+        ];
+
+        $order = ['id'=>'desc'];
+
+        $rel = $this->where($data)->order($order)->paginate(2);
+        //echo $this->getLastSql();
+        return $rel;
+    }
+
 
 
 }
