@@ -11,6 +11,11 @@
 
 // 应用公共文件
 
+/**
+ * 修改状态
+ * @param $status
+ * @return string
+ */
  function status($status) {
     $str = '';
     if($status == 1) {
@@ -24,6 +29,12 @@
     return $str;
 }
 
+/**
+ * 公共方法
+ * @param $status
+ * @param $message
+ * @param array $data
+ */
 function show($status,$message,$data=array()) {
     $result = array(
         'status'=>$status,
@@ -31,4 +42,32 @@ function show($status,$message,$data=array()) {
         'data'=>$data
     );
     exit(json_encode($result));
+}
+
+/**
+ * @param $url
+ * @param $type 1|post方式 0|get方式
+ * @param array $data
+ */
+function doCurl($url,$type = 0,$data=[]) {
+    $cu = curl_init(); //初始化
+
+    //设置选项
+    curl_setopt($cu,CURLOPT_URL,$url);
+    curl_setopt($cu,CURLOPT_RETURNTRANSFER,1);
+    curl_setopt($cu,CURLOPT_HEADER,0);
+
+    if($type == 1) {
+        //post
+        curl_setopt($cu,CURLOPT_PORT,1);
+        curl_setopt($cu,CURLOPT_POSTFIELDS,$data);
+    }
+
+    //执行并获取内容
+    $output = curl_exec($cu);
+    //释放curl句柄
+    curl_close($cu);
+
+    return $output;
+
 }

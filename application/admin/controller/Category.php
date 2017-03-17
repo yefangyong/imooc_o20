@@ -12,6 +12,7 @@ class Category extends Controller
 
     public function index()
     {
+        \Map::getLngLat('安徽省蚌埠市蚌埠医学院');
         $parent_id = input('get.parent_id',0,'intval');
         $category = $this->obj->getCatorys($parent_id);
         return $this->fetch('',['categorys'=>$category]);
@@ -22,6 +23,9 @@ class Category extends Controller
        return $this->fetch('',['categorys'=>$category]);
    }
 
+    /**
+     * 更新和添加功能
+     */
     public function save() {
         if(!request()->isPost()) {
             return $this->error('请求失败!');
@@ -42,12 +46,21 @@ class Category extends Controller
         }
     }
 
+    /**
+     * 编辑页面开发
+     * @param int $id
+     * @return mixed
+     */
     public function edit($id = 0) {
         $categorys = $this->obj->getNormalFirstCategory();
         $category = $this->obj->get($id);
         return $this->fetch('',['categorys'=>$categorys,'category'=>$category]);
     }
 
+    /**
+     * @param $data 数组
+     * 修改功能
+     */
     public function update($data) {
         $rel = $this->obj->save($data,['id'=>$data['id']]);
         if($rel) {
@@ -73,7 +86,6 @@ class Category extends Controller
     /**
      * 更改状态
      */
-
     public function status() {
         $data = input('post.');
         $rel = $this->obj->save(['status'=>$data['status']],['id'=>$data['id']]);
