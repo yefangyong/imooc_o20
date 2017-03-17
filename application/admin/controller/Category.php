@@ -70,5 +70,19 @@ class Category extends Controller
         }
     }
 
+    /**
+     * 更改状态
+     */
+
+    public function status() {
+        $data = input('post.');
+        $rel = $this->obj->save(['status'=>$data['status']],['id'=>$data['id']]);
+        if($rel) {
+            return show(1,'操作成功!');
+        }else {
+            return show(0,'操作失败!');
+        }
+    }
+
 
 }

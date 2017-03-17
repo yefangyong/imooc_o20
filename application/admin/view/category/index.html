@@ -6,7 +6,7 @@
 	
 	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a class="btn btn-primary radius" onclick="o2o_s_edit('添加生活服务分类','{:url('category/add')}','',300)" href="javascript:;"><i class="Hui-iconfont">&#xe600;</i> 添加分类</a></span> <span class="r"></span> </div>
 	<div class="mt-20">
-		<table class="table table-border table-bordered table-bg table-hover table-sort">
+		<table class="table table-border table-bordered table-bg table-hover table-sort o2o_yfycms">
 			<thead>
 				<tr class="text-c">
 					<th width="40"><input name="" type="checkbox" value=""></th>
@@ -26,8 +26,8 @@
 					<td>{$vo.name}</td>
 					<td class="text-c listorder"><input name="listorder" size="3" attr-id="{$vo.id}" value="{$vo.listorder}"/></td>
 					<td>{$vo.create_time}</td>
-					<td class="td-status"><a href="" title="点击修改状态">{$vo.status|status}</a></td>
-					<td class="td-manage"><a href="{:url('category/index',['parent_id'=>$vo.id])}">获取子栏目</a><a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{:url('category/edit',['id'=>$vo.id])}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5" onClick="o2o_del('','')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-status"><a href="javascript:;" class="o2o_status" attr-id="{$vo.id}" attr-status="{$vo.status==0?1:0}" title="点击修改状态">{$vo.status|status}</a></td>
+					<td class="td-manage"><a href="{:url('category/index',['parent_id'=>$vo.id])}">获取子栏目</a><a style="text-decoration:none" class="ml-5" onClick="o2o_s_edit('编辑','{:url('category/edit',['id'=>$vo.id])}','',300)" href="javascript:;" title="编辑"><i class="Hui-iconfont">&#xe6df;</i></a> <a style="text-decoration:none" class="ml-5 o2o_status"  attr-id="{$vo.id}" attr-status="-1" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				{/volist}
 			</tbody>
@@ -40,7 +40,8 @@
 <script>
 var SCOPE ={
     'listorder_url':"{:url('category/listorder')}",
-        'jump_url':"{:url('category/index')}"
+        'jump_url':"{:url('category/index')}",
+    'status_url':"{:url('category/status')}",
 }
 </script>
 </body>
