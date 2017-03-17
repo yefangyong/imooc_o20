@@ -57,5 +57,18 @@ class Category extends Controller
         }
     }
 
+    /**
+     * 排序逻辑
+     */
+    public function listorder() {
+        $data = input('post.');
+        $rel = $this->obj->save(['listorder'=>$data['listorder']],['id'=>$data['id']]);
+        if($rel) {
+            return show(1,'操作成功!');
+        }else {
+            return show(0,'操作失败!');
+        }
+    }
+
 
 }

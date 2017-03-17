@@ -16,7 +16,10 @@ class Category extends Model
             'parent_id'=>'0'
         ];
 
-        $order = ['id'=>'desc'];
+        $order = [
+            'id'=>'desc',
+            'listorder'=>'desc'
+        ];
 
         return $this->where($data)->order($order)->select();
     }
