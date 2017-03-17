@@ -29,7 +29,7 @@ class Category extends Model
 
         $order = ['id'=>'desc'];
 
-        $rel = $this->where($data)->order($order)->paginate(2);
+        $rel = $this->where($data)->order($order)->paginate();
         //echo $this->getLastSql();
         return $rel;
     }

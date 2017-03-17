@@ -23,10 +23,16 @@ class Category extends Controller
    }
 
     public function save() {
+        if(!request()->isPost()) {
+            return $this->error('请求失败!');
+        }
         $data = input('post.');
         $validate = validate('Category');
         if(!$validate->scene('add')->check($data)) {
             $this->error($validate->getError());
+        }
+        if(!empty($data['id'])) {
+            return $this->update($data);
         }
         $res = $this->obj->add($data);
         if($res) {
@@ -34,8 +40,21 @@ class Category extends Controller
         }else {
             $this->error('新增失败!');
         }
+    }
 
+    public function edit($id = 0) {
+        $categorys = $this->obj->getNormalFirstCategory();
+        $category = $this->obj->get($id);
+        return $this->fetch('',['categorys'=>$categorys,'category'=>$category]);
+    }
 
+    public function update($data) {
+        $rel = $this->obj->save($data,['id'=>$data['id']]);
+        if($rel) {
+            return $this->success('修改成功!');
+        }else {
+            return $this->error('修改失败!');
+        }
     }
 
 
