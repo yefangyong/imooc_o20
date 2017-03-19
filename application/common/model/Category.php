@@ -10,10 +10,10 @@ class Category extends Model
         return $this->save($data);
     }
 
-    public function getNormalFirstCategory() {
+    public function getNormalFirstCategory($id=0) {
         $data = [
             'status'=>1,
-            'parent_id'=>'0'
+            'parent_id'=>$id
         ];
 
         $order = [
@@ -24,7 +24,7 @@ class Category extends Model
         return $this->where($data)->order($order)->select();
     }
 
-    public function getCatorys($id = 0) {
+    public function getCategorys($id = 0) {
         $data = [
             'status'=>['neq',-1],
             'parent_id'=>$id

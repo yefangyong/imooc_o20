@@ -53,13 +53,13 @@ function doCurl($url,$type = 0,$data=[]) {
     $cu = curl_init(); //初始化
 
     //设置选项
-    curl_setopt($cu,CURLOPT_URL,$url);
-    curl_setopt($cu,CURLOPT_RETURNTRANSFER,1);
-    curl_setopt($cu,CURLOPT_HEADER,0);
+    curl_setopt($cu,CURLOPT_URL,$url); //设置url
+    curl_setopt($cu,CURLOPT_RETURNTRANSFER,1); //信息以文件流的方式保存，而不是直接输出
+    curl_setopt($cu,CURLOPT_HEADER,0); //不包括header头部信息
 
     if($type == 1) {
         //post
-        curl_setopt($cu,CURLOPT_PORT,1);
+        curl_setopt($cu,CURLOPT_POST,1);
         curl_setopt($cu,CURLOPT_POSTFIELDS,$data);
     }
 

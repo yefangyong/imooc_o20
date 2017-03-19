@@ -33,6 +33,10 @@ return [
     'api'    => [
         '__dir__'    => ['controller','view'],
         'controller'      => ['Index','Image'],
-    ]
+    ],
+    'bis'    => [
+    '__dir__'    => ['controller','view'],
+    'controller'      => ['Register','Login'],
+]
     // 其他更多的模块定义
 ];
