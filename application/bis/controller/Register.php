@@ -36,6 +36,11 @@ class Register extends Controller
 //            $this->error($validate->getError());
 //        }
 
+        $user = model('BisAccount')->get($data['username']);
+        if($user) {
+            return $this->error('此用户已经存在');
+        }
+
         //商户信息入库
         $lnglat = \Map::getLngLat($data['address']);
         $lnglat = json_decode($lnglat);
@@ -80,7 +85,7 @@ class Register extends Controller
             'category_path'=>$data['category_id'].','.$data['cat'],
             'city_id'=>$data['city_id'],
             'city_path'=>empty($data['se_city_id'])?$data['city_id']:$data['city_id'].$data['se_city_id'],
-            'address'=>$data['address'],
+            'api_address'=>$data['address'],
             'open_time'=>$data['open_time'],
             'content'=>empty($data['content'])?'':$data['content'],
             'is_main'=>1,
@@ -113,15 +118,19 @@ class Register extends Controller
 
         //发送邮件给注册商户
         $title ='o2o入驻申请通知!';
-        $url = request()->domain().url('bis/register/waiting');
+        $url = request()->domain().url('bis/register/waiting',['id'=>$bisId]);
         $content = "您入驻的申请需要等待平台方审核,请点击链接<a href='".$url."' target='_blank' >查看审核状态</a>";
         \phpmailer\Email::send($data['email'],$title,$content);
-        return $this->success('请求成功!');
+        return $this->success('请求成功!',url('bis/register/waiting',['id'=>$bisId]));
 
     }
 
-    public function waiting() {
-        return 'success';
+    public function waiting($id) {
+        if(!$id) {
+            return $this->error('参数错误!');
+        }
+        $detail = model('Bis')->get($id);
+        return $this->fetch('',['detail'=>$detail]);
     }
 
 }

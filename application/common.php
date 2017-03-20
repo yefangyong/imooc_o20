@@ -69,5 +69,21 @@ function doCurl($url,$type = 0,$data=[]) {
     curl_close($cu);
 
     return $output;
+}
 
+/**
+ * @param $status
+ * 获取商户入驻审核状态
+ */
+function bisRegister($status) {
+    if($status == 1) {
+        $str = '入驻申请成功!';
+    }else if($status == 0) {
+        $str = '待审核 审核后平台方会发送邮件通知，请关注邮件';
+    }else if($status == 2) {
+        $str = '非常抱歉,您提交的资料不符合条件，请重新编译';
+    }else {
+        $str = '该申请已被删除';
+    }
+    return $str;
 }
