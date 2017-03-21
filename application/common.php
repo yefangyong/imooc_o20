@@ -87,3 +87,11 @@ function bisRegister($status) {
     }
     return $str;
 }
+
+function pagination($obj) {
+    if(!$obj) {
+        return '';
+    }else {
+        return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5">'.$obj->render().'</div>';
+    }
+}
