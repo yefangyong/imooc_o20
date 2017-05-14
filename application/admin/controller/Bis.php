@@ -49,8 +49,8 @@ class Bis extends Controller
     public function status() {
         $data = input('post.');
         $rel = $this->obj->save(['status'=>$data['status']],['id'=>$data['id']]);
-        $bisLocation = Model('BisLocation')->save(['status'=>$data['status'],'is_main'=>1,'bis_id'=>$data['id']]);
-        $bisAccount = Model('BisAccount')->save(['status'=>$data['status'],'is_main'=>1,'bis_id'=>$data['id']]);
+        $bisLocation = Model('BisLocation')->save(['status'=>$data['status']],['is_main'=>1,'bis_id'=>$data['id']]);
+        $bisAccount = Model('BisAccount')->save(['status'=>$data['status']],['is_main'=>1,'bis_id'=>$data['id']]);
         $bisData = $this->obj->get($data['id']);
         if($rel && $bisAccount && $bisLocation && $bisData) {
             //status 1 审核成功  2不通过 0未审核 -1 删除

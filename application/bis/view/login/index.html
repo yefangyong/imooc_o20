@@ -6,7 +6,7 @@
 
   <div id="loginform" class="loginBox">
 
-    <form class="form form-horizontal" action="" method="post">
+    <form class="form form-horizontal" id="yfycms-form">
       <div class="row cl">
         <label class="form-label col-xs-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-xs-8">
@@ -25,7 +25,7 @@
 
         <div class="formControls col-xs-8 col-xs-offset-3">
 
-          <input name="" type="submit" class="btn btn-success radius size-L" value="&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;">
+          <button  type="button" id="o2o-yfycms-submit" class="btn btn-success radius size-L">&nbsp;登&nbsp;&nbsp;&nbsp;&nbsp;录&nbsp;</button>
           <input name="" type="reset" class="btn btn-default radius size-L" value="&nbsp;取&nbsp;&nbsp;&nbsp;&nbsp;消&nbsp;">
           <a href="{:url('register/index')}"><input name="" type="" class="btn btn-success radius size-L" value="&nbsp;申请&nbsp;&nbsp;&nbsp;&nbsp;入驻&nbsp;"></a>
         </div>
@@ -36,3 +36,11 @@
 <div class="footer">Copyright tp5打造本地生活服务系统</div>
 <!--包含尾部文件-->
 {include file="public/footer" /}
+<script>
+
+  var SCOPE = {
+          'save_url':'{:url('bis/login/index')}',
+          'jump_url':'{:url('bis/index/index')}'
+
+  }
+</script>
