@@ -8,5 +8,6 @@ return [
     'geocoder'=>'geocoder/v2/',
     'width'=>300,
     'height'=>200,
-    'staticimage'=>'staticimage/v2'
+    'staticimage'=>'staticimage/v2',
+    'location'=>'location/ip',
 ];

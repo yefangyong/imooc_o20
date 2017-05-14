@@ -88,10 +88,50 @@ function bisRegister($status) {
     return $str;
 }
 
+/**
+ * @param $obj
+ * @return string
+ * 通用的分页样式
+ */
 function pagination($obj) {
     if(!$obj) {
         return '';
     }else {
         return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5">'.$obj->render().'</div>';
     }
+}
+
+/**
+ * @return string
+ * 获取客户端IP地址
+ */
+function getIP(){
+    global $ip;
+    if (getenv("HTTP_CLIENT_IP"))
+        $ip = getenv("HTTP_CLIENT_IP");
+    else if(getenv("HTTP_X_FORWARDED_FOR"))
+        $ip = getenv("HTTP_X_FORWARDED_FOR");
+    else if(getenv("REMOTE_ADDR"))
+        $ip = getenv("REMOTE_ADDR");
+    else $ip = "Unknow IP";
+    return $ip;
+}
+
+/**
+ * @param $path
+ * @return string
+ * 获取二级城市分类
+ */
+function getSeCityName($path) {
+    if(empty($path)) {
+        return '';
+    }
+    if(preg_match('/,/',$path)) {
+        $cityPath = explode(',',$path);
+        $cityId = $cityPath[1];
+    }else {
+        $cityId = $path;
+    }
+    $city = Model('City')->get($cityId);
+    return $city['name'];
 }

@@ -7,18 +7,14 @@ class Category extends Controller
 
     public function _initialize()
     {
-       $this->obj = model('Category');
+       $this->obj = Model('Category');
     }
 
     public function index()
     {
         $parent_id = input('get.parent_id',0,'intval');
-        $category = $this->obj->getCatorys($parent_id);
+        $category = $this->obj->getCategorys($parent_id);
         return $this->fetch('',['categorys'=>$category]);
-    }
-
-    public function map() {
-        return \Map::staticimage('安徽省蚌埠市蚌埠医学院');
     }
 
    public function add() {
