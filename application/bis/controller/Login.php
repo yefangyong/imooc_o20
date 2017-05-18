@@ -8,6 +8,12 @@ class Login extends Controller
             $data = input('post.');
             //通过用户名来判断
             //严格的判定
+            if(!$data['username'] || empty($data['username'])) {
+                return show(0,'用户名不得为空!');
+            }
+            if(!$data['password'] || empty($data)) {
+                return show(0,'密码不得为空!');
+            }
             $ret = Model('bisAccount')->get(['username'=>$data['username']]);
             if($ret->status != 1 || !$ret) {
                 return show(0,'该用户不存在，或者该用户未审核!');

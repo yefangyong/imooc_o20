@@ -135,3 +135,18 @@ function getSeCityName($path) {
     $city = Model('City')->get($cityId);
     return $city['name'];
 }
+
+
+/**
+ * @param $status
+ * @return string
+ * 判断是总店还是分店
+ */
+function main($status) {
+    if($status == 1) {
+        $content = '总店';
+    }else if($status == 0) {
+        $content = '分店';
+    }
+    return $content;
+}
