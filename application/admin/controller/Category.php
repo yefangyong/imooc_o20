@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 use think\Controller;
-class Category extends Controller
+class Category extends Base
 {
     private $obj;
 
@@ -69,31 +69,31 @@ class Category extends Controller
         }
     }
 
-    /**
-     * 排序逻辑
-     */
-    public function listorder() {
-        $data = input('post.');
-        $rel = $this->obj->save(['listorder'=>$data['listorder']],['id'=>$data['id']]);
-        if($rel) {
-            return show(1,'操作成功!');
-        }else {
-            return show(0,'操作失败!');
-        }
-    }
+//    /**
+//     * 排序逻辑
+//     */
+//    public function listorder() {
+//        $data = input('post.');
+//        $rel = $this->obj->save(['listorder'=>$data['listorder']],['id'=>$data['id']]);
+//        if($rel) {
+//            return show(1,'操作成功!');
+//        }else {
+//            return show(0,'操作失败!');
+//        }
+//    }
 
-    /**
-     * 更改状态
-     */
-    public function status() {
-        $data = input('post.');
-        $rel = $this->obj->save(['status'=>$data['status']],['id'=>$data['id']]);
-        if($rel) {
-            return show(1,'操作成功!');
-        }else {
-            return show(0,'操作失败!');
-        }
-    }
+//    /**
+//     * 更改状态
+//     */
+//    public function status() {
+//        $data = input('post.');
+//        $rel = $this->obj->save(['status'=>$data['status']],['id'=>$data['id']]);
+//        if($rel) {
+//            return show(1,'操作成功!');
+//        }else {
+//            return show(0,'操作失败!');
+//        }
+//    }
 
 
 }
