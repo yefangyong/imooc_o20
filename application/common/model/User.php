@@ -19,4 +19,13 @@ class User extends BaseModel
          return $this->data($data)->allowField(true)->save();
     }
 
+    /**
+     * @param $data
+     * @param $id
+     * @return bool
+     * 修改最后登录时间
+     */
+    public function updateById($data,$id) {
+       return $this->allowField(true)->save($data,['id'=>$id]);
+    }
 }

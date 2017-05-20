@@ -5,11 +5,52 @@ use think\Exception;
 
 class User extends Controller
 {
+    /**
+     * @return mixed|void
+     * 用户登录
+     */
     public function login()
     {
-        return $this->fetch();
+        //获取session,如果登录直接跳转到首页
+        $user = session('userAccount','','index');
+        if($user && $user->id) {
+             $this->redirect(url('index/index/index'));
+        }
+        if(request()->isPost()) {
+            $data = input('post.');
+
+            //tp5 validate验证机制
+           if(empty($data['verifycode'])) {
+               return $this->error('验证码不得为空!');
+           }
+            if(!captcha_check($data['verifycode'])) {
+                return $this->error('验证码不正确!');
+            }
+            $rel = model('User')->get(['username'=>$data['username']]);
+            if(!$rel) {
+                return $this->error('用户名不存在');
+            }
+            if($rel->password != md5($data['password'].$rel->code)) {
+                return $this->error('密码不正确');
+            }
+            //登录成功,异常处理
+            try{
+                model('User')->updateById(['last_login_time'=>time()],$rel->id);
+            }catch(Exception $e) {
+                $this->error($e->getMessage());
+            }
+            session('userAccount',$rel,'index');
+            return $this->success('登录成功',url('index/index/index'));
+        }else {
+            return $this->fetch();
+        }
+
     }
 
+    /**
+     * @return mixed|void
+     * 用户注册
+     */
     public function register() {
         if(request()->isPost()) {
             $data = input('post.');
@@ -40,5 +81,13 @@ class User extends Controller
         }else {
             return $this->fetch();
         }
+    }
+
+    /**
+     * 退出登录
+     */
+    public function logout() {
+        session(null,'index');
+        $this->redirect(url('index/user/login'));
     }
 }

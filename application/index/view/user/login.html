@@ -10,6 +10,9 @@
     <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/dialog/dialog.js"></script>
+    <script type="text/javascript" src="__STATIC__/dialog/layer.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
 </head>
 <body>
     <div class="wrapper">
@@ -31,23 +34,28 @@
                 <div class="login-area">
                     <div class="title">登录</div>
                     <div class="login">
-                        <form>
+                        <form id="yfycms-form" method="post" action="">
                             <div class="ordinaryLogin">
                                 
                                 <p class="pass-form-item">
                                     <label class="pass-label">用户名</label>
-                                    <input type="text" name="userName" class="pass-text-input" placeholder="用户名">
+                                    <input type="text" name="username" class="pass-text-input" placeholder="用户名">
                                 </p>
                                 <p class="pass-form-item">
                                     <label class="pass-label">密码</label>
                                     <input type="password" name="password" class="pass-text-input" placeholder="密码">
+                                </p>
+                                <p class="pass-form-item">
+                                    <label class="pass-label">验证码</label>
+                                    <input type="text" name="verifycode" class="pass-text-input " placeholder="请输入验证码">
+                                    {:captcha_img()}
                                 </p>
                                 
                             </div>
                            
                             <div class="commonLogin">
                                 <p class="pass-form-item">
-                                    <input type="submit" value="登录" class="pass-button">
+                                    <button type="submit" id="o2o-yfycms-submit" class="pass-button">登录</button>
                                     
                                     
                                 </p>
