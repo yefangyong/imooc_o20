@@ -10,14 +10,17 @@
     <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="__STATIC__/dialog/dialog.js"></script>
+    <script type="text/javascript" src="__STATIC__/dialog/layer.js"></script>
+    <script type="text/javascript" src="__STATIC__/admin/js/common.js"></script>
 </head>
 <body>
     <div class="wrapper">
         <div class="head">
             <ul>  
-                <li><a href="index.html"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
+                <li><a href="/"><img src="__STATIC__/index/image/logo.png" alt="logo"></a></li>
                 <li class="divider"></li>
-                <li><a href="index.html"></a></li>
+                <li><a href="/"></a></li>
             </ul>
             <div class="login-link">
                 <span>我已注册，现在就</span>
@@ -26,32 +29,33 @@
         </div>
 
         <div class="content">
-            <form>
-                <p class="pass-form-item">
+            <form id="yfycms-form" method="post" action="{:url('index/user/register')}">
+                <div class="pass-form-item">
                     <label class="pass-label">用户名</label>
-                    <input type="text" name="userName" class="pass-text-input" placeholder="请设置用户名">
-                </p>
-                <p class="pass-form-item">
+                    <input type="text" name="username" class="pass-text-input" placeholder="请设置用户名">
+                </div>
+                <div class="pass-form-item">
                     <label class="pass-label">邮箱号</label>
                     <input type="text" name="email" class="pass-text-input" placeholder="可用于接受团购券账号和密码便于消费">
-                </p>
-                
-                <p class="pass-form-item">
+                </div>
+
+                <div class="pass-form-item">
                     <label class="pass-label">密码</label>
                     <input type="text" name="password" class="pass-text-input" placeholder="请设置登录密码">
-                </p>
-                <p class="pass-form-item">
+                </div>
+                <div class="pass-form-item">
                     <label class="pass-label">确认密码</label>
-                    <input type="text" name="password" class="pass-text-input" placeholder="请设置登录密码">
-                </p>
-                <p class="pass-form-item">
+                    <input type="text" name="repassword" class="pass-text-input" placeholder="请设置登录密码">
+                </div>
+                <div class="pass-form-item">
                     <label class="pass-label">验证码</label>
-                    <input type="text" name="verifyCode" class="pass-text-input " placeholder="请输入验证码">
-                </p>
-                
-                <p class="pass-form-item">
-                    <input type="submit" value="注册" class="pass-button">
-                </p>
+                    <input type="text" name="verifycode" class="pass-text-input " placeholder="请输入验证码">
+                {:captcha_img()}
+                </div>
+
+                <div class="pass-form-item">
+                    <button type="submit" id="o2o-yfycms-submit" class="pass-button">注册</button>
+                </div>
             </form>
            
         </div>
@@ -62,5 +66,11 @@
             </div>
         </div>
     </div>
+<script>
+   var SCOPE = {
+        'save_url':'{:url("index/user/register")}',
+        'jump_url':'{:url("index/user/login")}'
+    };
+</script>
 </body>
 </html>
