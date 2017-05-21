@@ -40,4 +40,20 @@ class BisLocation extends BaseModel
         }
     }
 
+    /**
+     * @param $id
+     * @return false|\PDOStatement|string|\think\Collection
+     * 获取某个团购商品下的门店信息
+     */
+    public function getNormalLocationInId($id) {
+        $data = [
+            'id'=>['in',$id],
+            'status'=>1
+        ];
+        $order = [
+            'id'=>'desc'
+        ];
+        return $this->where($data)->order($order)->select();
+    }
+
 }

@@ -3,7 +3,7 @@ namespace app\admin\controller;
 use think\Controller;
 use think\Model;
 
-class Deal extends Controller
+class Deal extends Base
 {
     private $obj;
 

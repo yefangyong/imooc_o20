@@ -17,6 +17,11 @@ class Base extends Controller
         //用户数据
         $user = $this->getLoginUser();
         $this->assign('user',$user);
+        //获取商品分类数据
+        $cats = $this->getNormalRecommendByCategory();
+        $this->assign('cat',$cats);
+        $this->assign('controller',strtolower(request()->controller()));
+        $this->assign('title','o2o团购网');
 
     }
 
@@ -54,6 +59,33 @@ class Base extends Controller
             $this->account = session('userAccount','','index');
         }
         return $this->account;
+    }
+
+    /**
+     * @return mixed
+     * 获取城市分类的数据，二级分类，
+     */
+    public function getNormalRecommendByCategory() {
+        //获取一级分类的数据
+        $cats = model('Category')->getNormalRecommendCategoryByParentId(0,5);
+        foreach($cats as $cat) {
+            $parentIds[] = $cat->id;
+        }
+        //获取二级分类数据
+        $sedCats = model('Category')->getNormalCategoryByParentId($parentIds);
+
+        foreach($sedCats as $sedCat) {
+            $sedCatsArr[$sedCat->parent_id][] =[
+                'id'=>$sedCat->id,
+                'name'=>$sedCat->name
+            ];
+        }
+        //组合数据
+        foreach($cats as $cat) {
+            $recomCats[$cat->id] = [$cat->name,empty($sedCatsArr[$cat->id])?'':$sedCatsArr[$cat->id]];
+        }
+
+        return $recomCats;
     }
 
 }

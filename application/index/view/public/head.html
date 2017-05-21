@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>首页</title>
+    <title>{$title}</title>
     <link rel="shortcut icon" href="">
     <link rel="stylesheet" href="__STATIC__/index/css/base.css" />
     <link rel="stylesheet" href="__STATIC__/index/css/common.css" />
-    <link rel="stylesheet" href="__STATIC__/index/css/index.css" />
+    <link rel="stylesheet" href="__STATIC__/index/css/{$controller}.css" />
     <script type="text/javascript" src="__STATIC__/index/js/html5shiv.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/respond.min.js"></script>
     <script type="text/javascript" src="__STATIC__/index/js/jquery-1.11.3.min.js"></script>
@@ -35,7 +35,7 @@
             {if condition="$user"}
             <li>欢迎您:　{$user->username}</li>
             <li>|</li>
-            <li><a href="{:url('user/logout')}">退出</a></li>
+            <li><a href="{:url('index/user/logout')}">退出</a></li>
             <li>|</li>
             <li><a href="{:url('bis/login/index')}">商户中心</a></li>
             {else/}
