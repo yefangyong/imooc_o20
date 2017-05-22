@@ -109,7 +109,7 @@
                                 {else/}
                                 <div class="item-buy-area">
                                     <div style="float:left" class="static-hook-real static-hook-id-12">
-                                        <a href="" class="btn-buy btn-buy-qrnew j-btn-buy btn-hit">立即抢购</a>
+                                        <a class=" o2o_order btn-buy btn-buy-qrnew j-btn-buy btn-hit">立即抢购</a>
                                     </div>
                                 </div>
                                 {/if}
@@ -337,6 +337,11 @@
         $(".branch").mouseenter(function(){
             $(".branch").removeClass("branch-open").addClass("branch-close");
             $(this).removeClass("branch-close").addClass("branch-open");
+        });
+        $(".o2o_order").click(function(){
+           var count =  $(".buycount-ctrl input").val();
+            url = "{:url('order/confirm',['id'=>$deal.id])}"+"&count="+count;
+            window.open(url);
         });
     </script>
 </body>
