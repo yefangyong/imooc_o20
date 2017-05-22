@@ -21,26 +21,26 @@ class User extends Controller
 
             //tp5 validate验证机制
            if(empty($data['verifycode'])) {
-               return $this->error('验证码不得为空!');
+               return show(0,'验证码不得为空!');
            }
             if(!captcha_check($data['verifycode'])) {
-                return $this->error('验证码不正确!');
+                return show(0,'验证码不正确!');
             }
             $rel = model('User')->get(['username'=>$data['username']]);
             if(!$rel) {
-                return $this->error('用户名不存在');
+                return show(0,'用户名不存在');
             }
             if($rel->password != md5($data['password'].$rel->code)) {
-                return $this->error('密码不正确');
+                return show(0,'密码不正确');
             }
             //登录成功,异常处理
             try{
                 model('User')->updateById(['last_login_time'=>time()],$rel->id);
             }catch(Exception $e) {
-                $this->error($e->getMessage());
+                return show(0,$e->getMessage());
             }
             session('userAccount',$rel,'index');
-            return $this->success('登录成功',url('index/index/index'));
+            return show(1,'登录成功');
         }else {
             return $this->fetch();
         }
@@ -56,13 +56,13 @@ class User extends Controller
             $data = input('post.');
             //进行数据验证，用tp5的validate验证机制
             if(!$data['verifycode']) {
-                return $this->error('验证码不得为空!!');
+                return show(0,'验证码不得为空!!');
             }
             if(!captcha_check($data['verifycode'])) {
-                return $this->error('验证码不正确!!');
+                return show(0,'验证码不正确!!');
             }
             if($data['password'] != $data['repassword']) {
-                return $this->error('密码不一致!');
+                return show(0,'密码不一致!');
             }
             $data['code'] = mt_rand(1000,10000);
             $data['password'] = md5($data['password'].$data['code']);
@@ -70,13 +70,13 @@ class User extends Controller
             try {
                 $rel = model('User')->add($data);
             }catch (Exception $e) {
-                return $this->error($e->getMessage());
+                return show(0,$e->getMessage());
             }
 
             if($rel) {
-                return $this->success('注册成功!',url('user/login'));
+                return show(1,'注册成功!',url('user/login'));
             }else {
-                return $this->error('注册失败!');
+                return show(0,'注册失败!');
             }
         }else {
             return $this->fetch();

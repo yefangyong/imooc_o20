@@ -34,7 +34,7 @@
                 <div class="login-area">
                     <div class="title">登录</div>
                     <div class="login">
-                        <form id="yfycms-form" method="post" action="">
+                        <form id="yfycms-form">
                             <div class="ordinaryLogin">
                                 
                                 <p class="pass-form-item">
@@ -55,9 +55,7 @@
                            
                             <div class="commonLogin">
                                 <p class="pass-form-item">
-                                    <button type="submit" id="o2o-yfycms-submit" class="pass-button">登录</button>
-                                    
-                                    
+                                    <button type="button" id="o2o-yfycms-submit" class="pass-button">登录</button>
                                 </p>
                             </div>
                         </form>
@@ -85,6 +83,28 @@
             $(".messageLogin,.question").css({display: "none"});
             $(".ordinaryLogin").css({display: "block"});
         });
+        $('#o2o-yfycms-submit').click(function(){
+            var data = $("#yfycms-form").serializeArray();
+            postData = {};
+            console.log(data);
+            $(data).each(function(i){
+                postData[this.name] = this.value;
+            });
+            console.log(postData);
+            var  url = SCOPE.save_url;
+            var jump_url = SCOPE.jump_url;
+            $.post(url,postData,function(result){
+                if(result.status == 1){
+                    return dialog.success(result.message,jump_url);
+                }else if(result.status == 0){
+                    return dialog.error(result.message);
+                }
+            },"JSON");
+        });
+        var SCOPE = {
+            'save_url':"{:url('user/login')}",
+            'jump_url':"{:url('index/index')}"
+        }
     </script>
 </body>
 </html>

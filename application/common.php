@@ -153,3 +153,14 @@ function main($status) {
     }
     return $content;
 }
+
+/**
+ * @return string
+ * 设置唯一的订单号
+ */
+function setOrderSn() {
+    list($t1,$t2) =explode(' ',microtime());
+    $t3 = explode('.',$t1*10000);
+    return $t2.$t3[0].rand(1000,9999);
+
+}

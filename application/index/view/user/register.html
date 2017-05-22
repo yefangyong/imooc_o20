@@ -29,7 +29,7 @@
         </div>
 
         <div class="content">
-            <form id="yfycms-form" method="post" action="{:url('index/user/register')}">
+            <form id="yfycms-form">
                 <div class="pass-form-item">
                     <label class="pass-label">用户名</label>
                     <input type="text" name="username" class="pass-text-input" placeholder="请设置用户名">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="pass-form-item">
-                    <button type="submit" id="o2o-yfycms-submit" class="pass-button">注册</button>
+                    <button type="button" id="o2o-yfycms-submit" class="pass-button">注册</button>
                 </div>
             </form>
            
@@ -67,6 +67,24 @@
         </div>
     </div>
 <script>
+    $('#o2o-yfycms-submit').click(function(){
+        var data = $("#yfycms-form").serializeArray();
+        postData = {};
+        console.log(data);
+        $(data).each(function(i){
+            postData[this.name] = this.value;
+        });
+        console.log(postData);
+        var  url = SCOPE.save_url;
+        var jump_url = SCOPE.jump_url;
+        $.post(url,postData,function(result){
+            if(result.status == 1){
+                return dialog.success(result.message,jump_url);
+            }else if(result.status == 0){
+                return dialog.error(result.message);
+            }
+        },"JSON");
+    });
    var SCOPE = {
         'save_url':'{:url("index/user/register")}',
         'jump_url':'{:url("index/user/login")}'
