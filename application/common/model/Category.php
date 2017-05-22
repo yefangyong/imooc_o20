@@ -18,7 +18,7 @@ class Category extends Model
     /**
      * @param int $id
      * @return false|\PDOStatement|string|\think\Collection
-     * 获取所有的一级的正常分类
+     * 获取所有的正常分类,默认为一级分类
      */
     public function getNormalFirstCategory($id=0) {
         $data = [
@@ -91,6 +91,24 @@ class Category extends Model
             'listorder'=>'desc',
             'id'=>'desc'
         ];
+        return $this->where($data)->order($order)->select();
+    }
+
+    /**
+     * @return false|\PDOStatement|string|\think\Collection
+     * 获取所有的正常的二级分类
+     */
+    public function getAllNormalSecondCategory() {
+        $data = [
+            'parent_id'=>['gt',0],
+            'status'=>1
+        ];
+
+        $order = [
+            'listorder'=>'desc',
+            'id'=>'desc'
+        ];
+
         return $this->where($data)->order($order)->select();
     }
 

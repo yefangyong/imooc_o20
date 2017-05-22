@@ -95,9 +95,12 @@ function bisRegister($status) {
  */
 function pagination($obj) {
     if(!$obj) {
-        return '';
+        return ' ';
     }else {
-        return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5">'.$obj->render().'</div>';
+        //优化分页 小技巧
+        //tp5自带的获取url参数的函数
+        $params = request()->param();
+        return '<div class="cl pd-5 bg-1 bk-gray mt-20 tp5">'.$obj->appends($params)->render().'</div>';
     }
 }
 
