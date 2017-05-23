@@ -30,6 +30,7 @@ class Weixinpay extends Controller
         $input->setTimeStart(date("YmdHis"));
         $input->setTimeExpire(date("YmdHis", time() + 600));
         $input->setGoodsTag("QRcode");
+        //支付成功的回调函数
         $input->setNotifyUrl("115.159.6.199/index.php/index/weixinpay/notify");
         $input->setTradeType("NATIVE");
         $input->setProductId($id);

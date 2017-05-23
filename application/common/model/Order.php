@@ -13,7 +13,8 @@ class Order extends Model
      */
     public function add($data = []) {
         $data['status'] = 1;
-        return $this->allowField(true)->save($data);
+        $this->allowField(true)->save($data);
+        return $this->id;
     }
 
 }

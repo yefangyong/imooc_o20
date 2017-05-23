@@ -103,7 +103,8 @@ class Deal extends BaseModel
 
         $datas[] = "status=1";
 
-        $rel =  $this->allowField(true)->where(implode(' AND ',$datas))->order($order)->paginate(2);
+        $rel =  $this->allowField(true)->where(implode(' AND ',$datas))->order($order)->paginate(1);
+
          return $rel;
     }
 
