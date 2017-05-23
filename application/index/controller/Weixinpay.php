@@ -1,6 +1,8 @@
 <?php
 namespace app\index\controller;
 use think\Controller;
+use think\Exception;
+use wxpay\database\WxPayResults;
 use wxpay\database\WxPayUnifiedOrder;
 use wxpay\NativePay;
 use wxpay\WxPayConfig;
@@ -8,9 +10,51 @@ use wxpay\WxPayConfig;
 class Weixinpay extends Controller
 {
     public function notify() {
-        //测试
+
         $weixinData = file_get_contents("php://input");
         file_put_contents('/tmp/2.txt',$weixinData,FILE_APPEND);
+        try {
+            $resultObj = new WxPayResults();
+            $weixinData = $resultObj->Init($weixinData);
+        }catch(Exception $e) {
+            $resultObj->setData('return_code','FAIL');
+            $resultObj->setData('return_msg',$e->getMessage());
+            return $resultObj->toXml();
+        }
+        if($weixinData['return_code'] === 'FAIL' || $weixinData['result_code'] !== 'SUCCESS' ) {
+            $resultObj->setData('return_code','FAIL');
+            $resultObj->setData('result_code','error');
+            return $resultObj->toXml();
+        }
+        //根据out_trade_no来查询订单数据
+        $outTradeNo = $weixinData['out_trade_no'];
+        $order = model('Order')->get(['out_trade_no'=>$outTradeNo]);
+
+        if(!$order || $order->pay_status == 1) {
+            $resultObj->setData('return_code','SUCCESS');
+            $resultObj->setData('result_code','ok');
+            return $resultObj->toXml();
+        }
+
+        //更新订单表 ，还有商品表中购买商品的数量
+        try {
+            $orderRes = model('Order')->updateOrderByoutTradeNo($outTradeNo,$weixinData);
+            $dealRes = model('Deal')->UpdateBuyCountBy($order->deal_id,$order->deal_count);
+        }catch(Exception $e) {
+            //更新失败，告诉微信服务器我们需要回调
+            $resultObj->setData('return_code','FAIL');
+            $resultObj->setData('result_code','error');
+            return $resultObj->toXml();
+        }
+
+        $resultObj->setData('return_code','SUCCESS');
+        $resultObj->setData('result_code','ok');
+        return $resultObj->toXml();
+
+
+
+
+
     }
 
     /**

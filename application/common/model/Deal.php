@@ -108,4 +108,15 @@ class Deal extends BaseModel
          return $rel;
     }
 
+    /**
+     * @param $id
+     * @param $data
+     * @return int|true
+     * @throws \think\Exception、
+     * 修改商品表中购买商品的数量
+     */
+    public function  UpdateBuyCountBy($id,$data) {
+        return $this->where(['id'=>$id])->setInc('buy_count',$data);
+    }
+
 }
