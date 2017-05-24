@@ -40,7 +40,6 @@ class Weixinpay extends Controller
         try {
             $orderRes = model('Order')->updateOrderByoutTradeNo($outTradeNo,$weixinData);
             $dealRes = model('Deal')->UpdateBuyCountBy($order->deal_id,$order->deal_count);
-
             //消费券的生成
            $coupons = [
                'sn'=>$outTradeNo,
