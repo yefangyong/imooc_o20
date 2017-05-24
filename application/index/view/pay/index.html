@@ -68,24 +68,22 @@
             
         </ul>
     </div>
-
     <script>
+        window.setInterval("get_pay_status()",2000);
         function get_pay_status() {
             url = "{:url('api/order/paystatus')}";
             pay_success_url = "{:url('pay/paysuccess')}";
-
             id = {$order.id};
             postData = {
-                'id' : id,
+                'id':id,
             };
-            $.post(url, postData,function(result){
-                //todo
-                if(result.status==1) {
-                    self.location=pay_success_url;
+            $.post(url,postData,function(result){
+                if(result.status == 1) {
+                    self.location = pay_success_url;
                 }
-            }, 'JSON');
+            },"JSON");
         }
-        window.setInterval("get_pay_status()", 2000);
     </script>
+
 </body>
 </html>

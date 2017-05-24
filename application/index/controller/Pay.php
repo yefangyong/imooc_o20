@@ -56,4 +56,12 @@ class Pay extends Base
         ]);
 
     }
+
+    /**
+     * @return mixed
+     * 成功页面
+     */
+    public function paysuccess() {
+        return $this->fetch();
+    }
 }
