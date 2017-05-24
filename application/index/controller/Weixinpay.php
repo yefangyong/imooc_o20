@@ -40,6 +40,24 @@ class Weixinpay extends Controller
         try {
             $orderRes = model('Order')->updateOrderByoutTradeNo($outTradeNo,$weixinData);
             $dealRes = model('Deal')->UpdateBuyCountBy($order->deal_id,$order->deal_count);
+
+            //消费券的生成
+           $coupons = [
+               'sn'=>$outTradeNo,
+               'password'=>rand(10000,99999),
+               'user_id'=>$order->user_id,
+               'deal_id'=>$order->deal_id,
+               'order_id'=>$order->id,
+           ];
+            $rel = model('Coupons')->add($coupons);
+            if($rel) {
+                //发送邮件,但是一般不发送邮件，一般加入队列处理，减轻服务器的压力，减少耦合
+                $user = session('userAccount','','index');
+                //发送邮件给注册商户
+                $title ='优惠券发放通知!';
+                $content = "您购买的商品的优惠券已经发放，请尽快使用!";
+                \phpmailer\Email::send($user->email,$title,$content);
+            }
         }catch(Exception $e) {
             //更新失败，告诉微信服务器我们需要回调
             $resultObj->setData('return_code','FAIL');
