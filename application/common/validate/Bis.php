@@ -1,8 +1,7 @@
 <?php
 namespace app\common\validate;
-use think\Validate;
 
-class Bis extends Validate {
+class Bis extends BaseValidate {
     protected $rule = [
        'name'=>'require|max:25',
         'email'=>'email',

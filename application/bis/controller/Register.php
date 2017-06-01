@@ -1,5 +1,6 @@
 <?php
 namespace app\bis\controller;
+use app\common\validate\Bis;
 use think\Controller;
 use think\Model;
 class Register extends Controller
@@ -30,11 +31,9 @@ class Register extends Controller
 
         //获取表单的值
         $data = input('post.');
-//        //商户信息校验
-//        $validate = validate('Bis');
-//        if(!$validate->scene('add')->check($data)) {
-//            $this->error($validate->getError());
-//        }
+
+        //验证层
+        (new Bis())->goCheck();
 
         $user = model('BisAccount')->get($data['username']);
         if($user) {

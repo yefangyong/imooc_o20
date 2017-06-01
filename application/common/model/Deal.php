@@ -68,7 +68,9 @@ class Deal extends BaseModel
         if($limit) {
             $rel = $rel->limit($limit);
         }
-        return $rel->select();
+
+         $result = $rel->select();
+        return $result;
     }
 
     /**
