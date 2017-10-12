@@ -7,9 +7,6 @@
  */
 
 namespace app\common\validate;
-
-
-use app\lib\exception\BaseException;
 use app\lib\exception\ParamException;
 use think\Exception;
 use think\Request;
@@ -27,9 +24,12 @@ class BaseValidate extends Validate
         $result = $this->batch()->check($param);
 
         if(!$result) {
+            //自定义错误
             $e = new ParamException([
-                'msg'=>'测试啊啊啊'
+                'msg'=>$this->error
             ]);
+            //内部错误
+            //$e = new Exception(implode(',',$this->error));
             throw $e;
         }else {
             return true;

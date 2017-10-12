@@ -1,0 +1,11 @@
+.tp5 .pagination li {
+    display: inline;
+    padding-left: 10px;
+}
+
+.pagination .active {
+    color: red;
+}
+.pagination .disable {
+    color: #888888;
+}
